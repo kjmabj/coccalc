@@ -1,0 +1,68 @@
+body {
+  background-color: #0c0c0d;
+}
+
+table {
+  width: 555px;
+  font: courier;
+  color: white;
+  text-align: center;
+  font: 20px courier, sans-serif;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.tdhead {
+  background-color: rgb(3, 48, 48);
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #1b1b1d;
+}
+
+tr:nth-child(odd) {
+  background-color: #2a2a2e;
+}
+
+td:nth-child(1) {
+  width: 150px;
+}
+
+td:nth-child(3) {
+  width: 100px;
+}
+
+.TABLEtext {
+  font: 20px courier, sans-serif;
+  text-align: left;
+  padding: 10px;
+}
+
+.button {
+  font: 20px courier, sans-serif;
+  background-color: darkred;
+  color: white;
+  border-style: hidden;
+  width: 100%;
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+.buttonALL {
+  background-color: darkred;
+  width: 549px;
+  font: 25px courier, sans-serif;
+  color: white;
+  border-style: hidden;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-weight: bold;
+}
+
+.buttonALL:hover {
+  opacity: 0.8;
+}
+

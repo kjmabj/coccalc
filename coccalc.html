@@ -1,0 +1,344 @@
+<html>
+  <head>
+    <title>Call of Cthulhu Character Creation</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/styles_coccalc.css" />
+  </head>
+
+  <body>
+    <center>
+      <br />
+      <input
+        class="buttonALL"
+        type="button"
+        id="ALL"
+        value="ROLL ALL"
+        onclick="rollALL()"
+      />
+    </center>
+    <br />
+    <table align="center">
+      <tr>
+        <td colspan="3" class="tdhead">Primary stats</td>
+      </tr>
+      <tr>
+        <td>Stat</td>
+        <td>Formula</td>
+        <td>Result</td>
+      </tr>
+      <tr>
+        <td>
+          <input
+            class="button"
+            type="button"
+            id="STR"
+            value="STR "
+            onclick="rollSTR()"
+          />
+        </td>
+        <td>3d6 x 5</td>
+        <td><div id="STRval"></div></td>
+      </tr>
+      <tr>
+        <td>
+          <input
+            class="button"
+            type="button"
+            id="SIZ"
+            value="SIZ "
+            onclick="rollSIZ()"
+          />
+        </td>
+        <td>(2d6 + 6) x 5</td>
+        <td><div id="SIZval"></div></td>
+      </tr>
+      <tr>
+        <td>
+          <input
+            class="button"
+            type="button"
+            id="APP"
+            value="APP "
+            onclick="rollAPP()"
+          />
+        </td>
+        <td>3d6 x 5</td>
+        <td><div id="APPval"></div></td>
+      </tr>
+      <tr>
+        <td>
+          <input
+            class="button"
+            type="button"
+            id="POW"
+            value="POW "
+            onclick="rollPOW()"
+          />
+        </td>
+        <td>3d6 x 5</td>
+        <td><div id="POWval"></div></td>
+      </tr>
+      <tr>
+        <td>
+          <input
+            class="button"
+            type="button"
+            id="CON"
+            value="CON "
+            onclick="rollCON()"
+          />
+        </td>
+        <td>3d6 x 5</td>
+        <td><div id="CONval"></div></td>
+      </tr>
+      <tr>
+        <td>
+          <input
+            class="button"
+            type="button"
+            id="DEX"
+            value="DEX "
+            onclick="rollDEX()"
+          />
+        </td>
+        <td>3d6 x 5</td>
+        <td><div id="DEXval"></div></td>
+      </tr>
+      <tr>
+        <td>
+          <input
+            class="button"
+            type="button"
+            id="INT"
+            value="INT "
+            onclick="rollINT()"
+          />
+        </td>
+        <td>(2d6 + 6) x 5</td>
+        <td><div id="INTval"></div></td>
+      </tr>
+      <tr>
+        <td>
+          <input
+            class="button"
+            type="button"
+            id="EDU"
+            value="EDU "
+            onclick="rollEDU()"
+          />
+        </td>
+        <td>(2d6 + 6) x 5</td>
+        <td><div id="EDUval"></div></td>
+      </tr>
+      <tr>
+        <td colspan="3" class="tdhead">Secondary stats</td>
+      </tr>
+      <tr>
+        <td>
+          <div id="rollLUCKbtn">
+            <input
+              class="button"
+              type="button"
+              id="LUCK"
+              value="LUCK"
+              onclick="rollLUCK()"
+            />
+          </div>
+        </td>
+        <td>(2d6 + 6) x 5</td>
+        <td><div id="LUCKval"></div></td>
+      </tr>
+      <tr>
+        <td colspan="3" class="tdhead">Derived stats</td>
+      </tr>
+      <tr>
+        <td>HP</td>
+        <td>(STR+SIZ) / 10</td>
+        <td><div id="HPval"></div></td>
+      </tr>
+      <tr>
+        <td>Sanity</td>
+        <td>POW</td>
+        <td><div id="SANval"></div></td>
+      </tr>
+      <tr>
+        <td>MP</td>
+        <td>POW/5</td>
+        <td><div id="MPval"></div></td>
+      </tr>
+      <tr>
+        <td>Dodge</td>
+        <td>DEX/2</td>
+        <td><div id="DODGEval"></div></td>
+      </tr>
+      <tr>
+        <td>MOV</td>
+        <td><div id="MOVdesc"></div></td>
+        <td><div id="MOVval"></div></td>
+      </tr>
+      <tr></tr>
+      <tr>
+        <td>BUILD<br>(DamageBonus)</td>
+        <td><div id="BUILDdesc"></div></td>
+        <td><div id="BUILDval"></div></td>
+      </tr>
+      <tr>
+        <td colspan="3" class="tdhead">Additional information</td>
+      </tr>
+      <tr>
+        <td colspan="3" class="TABLEtext">
+          You may reroll all primary stats if three or more are below 50.<br /><br />
+          Secondary stats (Luck) may not be rerolled.
+        </td>
+      </tr>
+    </table>
+
+    <script>
+      var result;
+      function twoD6() {
+        result =
+          (Math.floor(Math.random() * 6) +
+            1 +
+            (Math.floor(Math.random() * 6) + 1) +
+            6) *
+          5;
+        if (result > 90) {
+          result = 90;
+        }
+        return result;
+      }
+      function threeD6() {
+        result =
+          (Math.floor(Math.random() * 6) +
+            1 +
+            (Math.floor(Math.random() * 6) + 1) +
+            (Math.floor(Math.random() * 6) + 1)) *
+          5;
+        if (result > 90) {
+          result = 90;
+        }
+        return result;
+      }
+
+      var STR = null;
+      var SIZ = null;
+      var DEX = null;
+      var HP = null;
+      var LUCK = null;
+
+      function rollALL() {
+        rollSTR();
+        rollSIZ();
+        rollAPP();
+        rollPOW();
+        rollCON();
+        rollDEX();
+        rollINT();
+        rollEDU();
+        rollLUCK();
+      }
+      function rollSTR() {
+        STR = threeD6();
+        document.getElementById("STRval").innerHTML = STR;
+        if (SIZ != null) {
+          determineHP();
+          determineBUILD();
+        }
+        if (SIZ != null && DEX != null) {
+          determineMOV();
+        }
+      }
+      function rollSIZ() {
+        SIZ = twoD6();
+        document.getElementById("SIZval").innerHTML = SIZ;
+        if (SIZ != null) {
+          determineHP();
+          determineBUILD();
+        }
+        if (STR != null && DEX != null) {
+          determineMOV();
+        }
+      }
+      function rollAPP() {
+        var APP = threeD6();
+        document.getElementById("APPval").innerHTML = APP;
+      }
+      function rollPOW() {
+        var POW = threeD6();
+        document.getElementById("POWval").innerHTML = POW;
+        var SAN = POW;
+        document.getElementById("SANval").innerHTML = SAN;
+        var MP = Math.floor(POW / 5);
+        document.getElementById("MPval").innerHTML = MP;
+      }
+      function rollCON() {
+        var CON = threeD6();
+        document.getElementById("CONval").innerHTML = CON;
+      }
+      function rollDEX() {
+        DEX = threeD6();
+        console.log(DEX);
+        var DODGE = Math.floor(DEX / 2);
+        if (STR != null && SIZ != null) {
+          determineMOV();
+        }
+        document.getElementById("DEXval").innerHTML = DEX;
+        document.getElementById("DODGEval").innerHTML = DODGE;
+      }
+      function rollINT() {
+        var INT = twoD6();
+        document.getElementById("INTval").innerHTML = INT;
+      }
+      function rollEDU() {
+        var EDU = twoD6();
+        document.getElementById("EDUval").innerHTML = EDU;
+      }
+      function rollLUCK() {
+        if (LUCK == null) {
+          LUCK = twoD6();
+          document.getElementById("LUCKval").innerHTML = LUCK;
+          document.getElementById("rollLUCKbtn").innerHTML = "LUCK";
+        }
+      }
+      function determineMOV() {
+        if (DEX < SIZ && STR < SIZ) {
+          MOV = 7;
+          document.getElementById("MOVdesc").innerHTML = "DEX & SIZ < SIZ";
+        } else if (DEX >= SIZ && STR >= SIZ) {
+          MOV = 9;
+          document.getElementById("MOVdesc").innerHTML = "DEX & SIZ > SIZ";
+        } else {
+          MOV = 8;
+          document.getElementById("MOVdesc").innerHTML = "DEX or SIZ > SIZ";
+        }
+        document.getElementById("MOVval").innerHTML = MOV;
+      }
+      function determineBUILD() {
+        var buildCheck = STR + SIZ;
+        if (buildCheck > 164) {
+          BUILD = 2;
+          document.getElementById("BUILDval").innerHTML = "2<br>(+1d6)";
+          document.getElementById("BUILDdesc").innerHTML = "STR+SIZ > 164";
+        } else if (buildCheck > 134) {
+          document.getElementById("BUILDval").innerHTML = "1<br>(+1d4)";
+          document.getElementById("BUILDdesc").innerHTML = "STR+SIZ > 134";
+        } else if (buildCheck > 84) {
+          document.getElementById("BUILDval").innerHTML = "0<br>(+0)";
+          document.getElementById("BUILDdesc").innerHTML = "STR+SIZ > 84";
+        } else if (buildCheck > 64) {
+          document.getElementById("BUILDval").innerHTML = "-1<br>(-1)";
+          document.getElementById("BUILDdesc").innerHTML = "STR+SIZ > 64";
+        } else {
+          document.getElementById("BUILDval").innerHTML = "-2<br>(-2)";
+          document.getElementById("BUILDdesc").innerHTML = "STR+SIZ > 2";
+        }
+      }
+      function determineHP() {
+          HP = Math.floor((STR + SIZ) / 10);
+          document.getElementById("HPval").innerHTML = HP;
+      }
+    </script>
+  </body>
+</html>
+
